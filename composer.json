@@ -1,0 +1,16 @@
+{
+  "name": "errnesto/webhooks",
+  "description": "Call a webhook whenever on various kirby events",
+  "type": "kirby-plugin",
+  "version": "1.0.0",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Manuel Reich",
+      "email": "errnesto@me.com"
+    }
+  ],
+  "require": {
+    "getkirby/composer-installer": "^1.1"
+  }
+}
