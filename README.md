@@ -4,6 +4,12 @@ This is a simple plugin that lets you configure custom webhooks.
 
 ---
 
+## TODO
+
+[ ] Document setup via site.txt
+[ ] Add config option to provide a custom payload function
+[ ] Add extra panel view?
+
 ## Installation
 
 ### Download
@@ -13,13 +19,13 @@ Download and copy this repository to `/site/plugins/webhooks`.
 ### Git submodule
 
 ```
-git submodule add https://github.com/errnesto/webhooks.git site/plugins/webhooks
+git submodule add https://github.com/errnesto/kirby-plugin-webhooks.git site/plugins/webhooks
 ```
 
 ### Composer
 
 ```
-composer require errnesto/webhooks
+composer require errnesto/kirby-plugin-webhooks
 ```
 
 ## Setup
@@ -30,14 +36,6 @@ _Additional instructions on how to configure the plugin (e.g. blueprint setup, c
 
 _Document the options and APIs that this plugin offers_
 
-## Development
-
-_Add instructions on how to help working on the plugin (e.g. npm setup, Composer dev dependencies, etc.)_
-
 ## License
 
 MIT
-
-## Credits
-
-- [Your Name](https://github.com/ghost)
