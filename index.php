@@ -23,11 +23,11 @@ function getHooks () {
         $getPayload = option('errnesto.webhooks.getPayload');
 
         $options = array(
-            'http' => array(
-                'header'  => $getHeader($webhook, ...$params),
-                'method'  => $getMethod($webhook, ...$params),
-                'content' => $getPayload($webhook, ...$params)
-            )
+          'http' => array(
+            'header'  => $getHeader($webhook, ...$params),
+            'method'  => $getMethod($webhook, ...$params),
+            'content' => $getPayload($webhook, ...$params)
+          )
         );
         $context  = stream_context_create($options);
         $result = file_get_contents($webhook['url'], false, $context);
