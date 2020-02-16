@@ -12,7 +12,7 @@ function getHooks () {
     }, $hooks);
   };
 
-  $webhooks = site()->hooks()->toStructure()->values();
+  $webhooks = site()->webhooks()->toStructure()->values();
   $byTrigger = array_reduce($webhooks, $groupByTrigger, array());
 
   return array_map(function ($triggerHooks) {
