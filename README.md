@@ -6,9 +6,9 @@ This is a simple plugin that lets you configure custom webhooks.
 
 ## TODO
 
-[ ] Document setup via site.txt
-[ ] Add config option to provide a custom payload function
-[ ] Add extra panel view?
+- [ ] Document setup via site.txt
+- [ ] Add config option to provide a custom payload function
+- [ ] Add extra panel view?
 
 ## Installation
 
