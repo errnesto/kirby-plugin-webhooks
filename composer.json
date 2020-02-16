@@ -1,6 +1,6 @@
 {
-  "name": "errnesto/webhooks",
-  "description": "Call a webhook whenever on various kirby events",
+  "name": "errnesto/kirby-plugin-webhooks",
+  "description": "Kirby plugin to register custom webhooks based on kirby hooks",
   "type": "kirby-plugin",
   "version": "1.0.0",
   "license": "MIT",
