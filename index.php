@@ -12,29 +12,41 @@ function getHooks () {
     }, $hooks);
   };
 
-  $webhooks = site()->hooks()->toStructure()->values();
+  $webhooks = site()->webhooks()->toStructure()->values();
   $byTrigger = array_reduce($webhooks, $groupByTrigger, array());
 
   return array_map(function ($triggerHooks) {
-    return function () use ($triggerHooks) {
+    return function (...$params) use ($triggerHooks) {
       foreach ($triggerHooks as $webhook) {
-        $url = $webhook['url'];
-        $data = $webhook['payload'];
+        $getHeader = option('errnesto.webhooks.getHeader');
+        $getMethod = option('errnesto.webhooks.getMethod');
+        $getPayload = option('errnesto.webhooks.getPayload');
 
         $options = array(
             'http' => array(
-                'header'  => "Content-type: application/json\r\n",
-                'method'  => 'POST',
-                'content' => $data
+                'header'  => $getHeader($webhook, ...$params),
+                'method'  => $getMethod($webhook, ...$params),
+                'content' => $getPayload($webhook, ...$params)
             )
         );
         $context  = stream_context_create($options);
-        $result = file_get_contents($url, false, $context);
+        $result = file_get_contents($webhook['url'], false, $context);
         }
     };
   }, $byTrigger);
 }
 
-Kirby::plugin('errnesto/wehooks', [
+Kirby::plugin('errnesto/webhooks', [
+  'options' => [
+    'getHeader' => function ($webhook, ...$params) {
+      return "Content-type: application/json\r\n";
+    },
+    'getMethod' => function ($webhook, ...$params) {
+      return "POST";
+    },
+    'getPayload' => function ($webhook, ...$params) {
+      return $webhook['payload'];
+    }
+  ],
   'hooks' => getHooks()
 ]);
