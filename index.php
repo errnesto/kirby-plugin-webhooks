@@ -6,7 +6,10 @@ function getHooks () {
 
     return array_reduce($currentTriggers, function ($hooks, $trigger) use ($webhook) {
       if (!$hooks[$trigger]) $hooks[$trigger] = array();
-      $hooks[$trigger][] = $webhook->toArray();
+      $hooks[$trigger][] = array(
+        'trigger' => $trigger,
+        'data' => $webhook->toArray()
+      );
 
       return $hooks;
     }, $hooks);
@@ -18,19 +21,22 @@ function getHooks () {
   return array_map(function ($triggerHooks) {
     return function (...$params) use ($triggerHooks) {
       foreach ($triggerHooks as $webhook) {
+        $getURL = option('errnesto.webhooks.getURL');
         $getHeader = option('errnesto.webhooks.getHeader');
         $getMethod = option('errnesto.webhooks.getMethod');
         $getPayload = option('errnesto.webhooks.getPayload');
 
         $options = array(
           'http' => array(
-            'header'  => $getHeader($webhook, ...$params),
-            'method'  => $getMethod($webhook, ...$params),
-            'content' => $getPayload($webhook, ...$params)
+            'header'  => $getHeader($webhook['trigger'], $webhook['data'], ...$params),
+            'method'  => $getMethod($webhook['trigger'], $webhook['data'],...$params),
+            'content' => $getPayload($webhook['trigger'], $webhook['data'], ...$params)
           )
         );
+
+        $url = $getURL($webhook['trigger'], $webhook['data'], ...$params);
         $context  = stream_context_create($options);
-        $result = file_get_contents($webhook['url'], false, $context);
+        file_get_contents($url, false, $context);
         }
     };
   }, $byTrigger);
@@ -38,13 +44,16 @@ function getHooks () {
 
 Kirby::plugin('errnesto/webhooks', [
   'options' => [
-    'getHeader' => function ($webhook, ...$params) {
+    'getURL' => function ($trigger, $webhook, ...$params) {
+      return $webhook['url'];
+    },
+    'getHeader' => function ($trigger, $webhook, ...$params) {
       return "Content-type: application/json\r\n";
     },
-    'getMethod' => function ($webhook, ...$params) {
+    'getMethod' => function ($trigger, $webhook, ...$params) {
       return "POST";
     },
-    'getPayload' => function ($webhook, ...$params) {
+    'getPayload' => function ($trigger, $webhook, ...$params) {
       return $webhook['payload'];
     }
   ],
