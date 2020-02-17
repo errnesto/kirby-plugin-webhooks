@@ -38,7 +38,7 @@ Webhooks:
 
 ```
 
-The config must be stored under the key `Webhooks` as yaml array.
+The config must be stored under the key `Webhooks` as yaml array.  
 Every webhook needs the following options:
 
 - `url`: The URL to post to when a kirby hook is triggered
