@@ -76,8 +76,6 @@ You can set all of the following options by returning them in your `/site/config
 
 ### `getURL()`
 
-This defines the remote url that is called
-
 ```php
 // dafault:
 return [
