@@ -65,7 +65,7 @@ webhooks:
 
 ## Options
 
-You can customize the requests the plugin sends with your own functions.
+You can customize the requests the plugin sends with your own functions.  
 Every function gets the following parameters:
 
 - `$trigger`: The name of the hook that caused the webhook to be called
