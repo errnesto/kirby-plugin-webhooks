@@ -39,10 +39,10 @@ Webhooks:
 ```
 
 The config must be stored under the key `Webhooks` as yaml array.
-A single webhook has the following options:
+Every webhook needs the following options:
 
-- `url`: The URL to post to when a kiry hook is triggered
-- `payload`: The body of the post request (for now only json is supported)
+- `url`: The URL to post to when a kirby hook is triggered
+- `payload`: The body of the post request
 - `triggers`: A comma seperated list of [kirby hooks](https://getkirby.com/docs/reference/system/options/hooks)
 
 A blueprint to edit the webhooks in the panel could look like this:
@@ -65,13 +65,14 @@ webhooks:
 
 ## Options
 
-You can customize the requests the plugin sends with cutom functions.
+You can customize the requests the plugin sends with your own functions.
 Every function gets the following parameters:
 
 - `$trigger`: The name of the hook that caused the webhook to be called
 - `$webhook`: The webhook read from the site object. (This will include any field you define)
 - `...$params`: All the params from the [kirby hook](https://getkirby.com/docs/reference/system/options/hooks).
-  You can set all those options by returning them in your `/site/config/config.php`:
+
+You can set all of the following options by returning them in your `/site/config/config.php`:
 
 ### `getURL()`
 
