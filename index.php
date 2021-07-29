@@ -5,7 +5,7 @@ function getHooks () {
     $currentTriggers = $webhook->triggers()->split();
 
     return array_reduce($currentTriggers, function ($hooks, $trigger) use ($webhook) {
-      if (!$hooks[$trigger]) $hooks[$trigger] = array();
+      if (!isset($hooks[$trigger])) $hooks[$trigger] = array();
       $hooks[$trigger][] = array(
         'trigger' => $trigger,
         'data' => $webhook->toArray()
