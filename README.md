@@ -1,6 +1,11 @@
 # Kirby Webhook Plugin
 
 This is a simple plugin that lets you configure custom webhooks.
+Webhooks are trigged by kirby hook events.
+
+**Alternative:**
+
+https://github.com/pju-/kirby-webhook-field
 
 ---
 
@@ -77,7 +82,7 @@ You can set all of the following options by returning them in your `/site/config
 ### `getURL()`
 
 ```php
-// dafault:
+// default:
 return [
   'errnesto.webhooks.getURL' => function ($trigger, $webhook, ...$params) {
     return $webhook['url'];
@@ -121,6 +126,8 @@ return [
 ## TODO
 
 - [ ] Add custom panel view and store webhooks somewhere else?
+- [ ] Returning null from `getURL` should skip a hook and not cause an error
+- [ ] Option to make hook non blocking?
 
 ## License
 
